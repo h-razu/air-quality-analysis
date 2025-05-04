@@ -17,6 +17,7 @@ def load_models():
     models['RandomForest'] = joblib.load(os.path.join(model_dir, "random_forest_model.pkl"))
     models['AdaBoost'] = joblib.load(os.path.join(model_dir, "ada_boost_model.pkl"))
     models['XGBoost'] = joblib.load(os.path.join(model_dir, "xgb_model.pkl"))
+    models['selected_features'] = joblib.load(os.path.join(model_dir, "selected_features.pkl"))
 
     return models
 

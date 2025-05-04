@@ -55,12 +55,7 @@ def run():
   status_text.empty()
   st.success("Loading complete!")
 
-  # Select top 10 important features
-  top_features = feature_importances['Feature'].head(10).tolist()
-
-  # Filter the train and test sets to use only the top 10 selected features
-  X_train_selected = X_train[top_features]
-  X_test_selected = X_test[top_features]
+  X_test_selected = X_test[models.get("selected_features")]
 
   # Sub-navigation inside this page
   sub_page = st.radio(
