@@ -9,6 +9,7 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 import joblib
 import os
+import xgboost as xgb
 
 def load_models():
     model_dir = "models"
@@ -16,8 +17,12 @@ def load_models():
 
     models['RandomForest'] = joblib.load(os.path.join(model_dir, "random_forest_model.pkl"))
     models['AdaBoost'] = joblib.load(os.path.join(model_dir, "ada_boost_model.pkl"))
-    models['XGBoost'] = joblib.load(os.path.join(model_dir, "xgb_model.pkl"))
+    # models['XGBoost'] = joblib.load(os.path.join(model_dir, "xgb_model.pkl"))
     models['selected_features'] = joblib.load(os.path.join(model_dir, "selected_features.pkl"))
+
+    xgb_model = xgb.Booster()
+    xgb_model.load_model(os.path.join(model_dir, "xgb_model.json"))
+    models['XGBoost'] = xgb_model
 
     return models
 
@@ -119,8 +124,11 @@ def show_model_results(models, model_name, X_test, y_test):
     model = models.get(model_name)
 
     if model:
-        # Predict
-        y_pred = model.predict(X_test)
+        if model_name == "XGBoost":
+            dtest = xgb.DMatrix(X_test)
+            y_pred = model.predict(dtest)
+        else:
+            y_pred = model.predict(X_test)
 
         # Metrics
         mae = mean_absolute_error(y_test, y_pred)

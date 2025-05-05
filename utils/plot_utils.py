@@ -192,7 +192,7 @@ def plot_correlation_heatmap(df):
 @st.cache_data
 def plot_top_feature_importance(top_features_df):
     fig, ax = plt.subplots(figsize=(12, 6))
-    sns.barplot(x='Importance', y='Feature', data=top_features_df, palette='viridis', ax=ax)
+    sns.barplot(x='Importance', y='Feature', data=top_features_df, hue='Feature', palette='viridis', ax=ax)
     ax.set_title("Top Feature Importances")
     ax.set_xlabel('Importance Score')
     ax.set_ylabel('Feature')

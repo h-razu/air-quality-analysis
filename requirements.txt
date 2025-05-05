@@ -3,5 +3,5 @@ numpy
 matplotlib
 pandas
 seaborn
-scikit-learn==1.6.1
-xgboost==3.0.0
+scikit-learn
+xgboost
