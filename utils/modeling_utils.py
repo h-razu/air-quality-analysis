@@ -12,6 +12,7 @@ import os
 import gdown
 import xgboost as xgb
 
+@st.cache_resource
 def load_models():
     model_dir = "models"
     models = {}

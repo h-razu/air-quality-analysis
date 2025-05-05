@@ -15,7 +15,7 @@ from utils.modeling_utils import (
 
 def run():
   st.title("Modeling & Prediction")
-  st.markdown("This section demonstrates the modeling workflow and predicts AQI based on top features through feature selection process.")
+  st.markdown("This section outlines the modeling workflow and predicts AQI using the top features selected through the feature selection process.")
 
   # Show the progress bar and text
   progress = st.progress(0)
