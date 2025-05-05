@@ -9,20 +9,29 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 import joblib
 import os
+import gdown
 import xgboost as xgb
 
 def load_models():
     model_dir = "models"
     models = {}
 
-    models['RandomForest'] = joblib.load(os.path.join(model_dir, "random_forest_model.pkl"))
+    # can't push to github due to size limitations
+    # models['RandomForest'] = joblib.load(os.path.join(model_dir, "random_forest_model.pkl"))
     models['AdaBoost'] = joblib.load(os.path.join(model_dir, "ada_boost_model.pkl"))
-    # models['XGBoost'] = joblib.load(os.path.join(model_dir, "xgb_model.pkl"))
     models['selected_features'] = joblib.load(os.path.join(model_dir, "selected_features.pkl"))
 
     xgb_model = xgb.Booster()
     xgb_model.load_model(os.path.join(model_dir, "xgb_model.json"))
     models['XGBoost'] = xgb_model
+
+    # Random Forest Model from Google Drive
+    rf_model_path = os.path.join(model_dir, "random_forest_model.pkl")
+    if not os.path.exists(rf_model_path):
+        url = "https://drive.google.com/uc?id=1cNBMmLE3cwv06C764fIeiz3fyIL08BVE"
+        gdown.download(url, rf_model_path, quiet=False)
+
+    models['RandomForest'] = joblib.load(rf_model_path)
 
     return models
 
